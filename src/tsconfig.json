@@ -19,6 +19,7 @@
     "files": [
         "../node_modules/typescript/lib/lib.es6.d.ts",
         "engine.ts",
-        "provider.ts"
+        "provider.ts",
+        "index.ts"
     ]
 }
