@@ -1,26 +1,53 @@
-import { DebugEngine } from './engine';
+// Copyright (c) 2015 Vadim Macagon
+// MIT License, see LICENSE file for full terms.
 
-export interface DebugEngineProvider {
-  provides(name: string): boolean;
+import { IDebugEngine } from './engine';
 
-  createEngine(): DebugEngine;
+export interface IDebugEngineProvider {
+  engineName: string;
+  createEngine(): IDebugEngine;
 }
 
-var _providers: DebugEngineProvider[] = [];
+var _providers: IDebugEngineProvider[] = [];
+var _engines: IDebugEngine[] = [];
 
-export function provide (provider: DebugEngineProvider): void {
-  _providers.push(provider);
-}
-
-export function getEngine (name: string): DebugEngine {
-  var providers = _providers.filter((provider: DebugEngineProvider): boolean => {
-    return provider.provides(name);
+export function register(provider: IDebugEngineProvider): void {
+  const existingProviders = _providers.filter((existingProvider) => {
+    return provider.engineName === existingProvider.engineName;
   });
-  if (providers.length > 1) {
-    throw("Oh no");
-  } else if (providers.length === 1) {
+
+  if (existingProviders.length === 0) {
+    _providers.push(provider);
+  } else {
+    throw new Error(`A provider for debug engine "${provider.engineName}" already exists.`);
+  }
+}
+
+export function unregisterAll(): void {
+  _providers = [];
+  _engines = [];
+}
+
+function createEngine(engineName: string): IDebugEngine {
+  const providers = _providers.filter((provider) => {
+    return provider.engineName === engineName;
+  });
+
+  if (providers.length === 1) {
     return providers[0].createEngine();
   } else {
-    throw("Oh no");
+    throw new Error(`No provider found for debug engine "${engineName}".`);
   }
+}
+
+export function getEngine(engineName: string): IDebugEngine {
+  for (let i = 0; i < _engines.length; ++i) {
+    if (_engines[i].name === engineName) {
+      return _engines[i];
+    }
+  }
+
+  const engine = createEngine(engineName);
+  _engines.push(engine);
+  return engine;
 }

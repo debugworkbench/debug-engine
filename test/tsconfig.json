@@ -8,13 +8,16 @@
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true,
         "inlineSourceMap": true,
-        "inlineSources": true
+        "inlineSources": true,
+        "noLib": true
     },
     "filesGlob": [
+        "../node_modules/typescript/lib/lib.es6.d.ts",
         "../typings/**/*.d.ts",
         "./**/*.ts"
     ],
     "files": [
+        "../node_modules/typescript/lib/lib.es6.d.ts",
         "../typings/test/tsd.d.ts",
         "provider.test.ts"
     ]
