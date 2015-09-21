@@ -1,12 +1,7 @@
-/// <reference path="../typings/test/tsd.d.ts" />
-/// <reference path="../lib/engine.d.ts" />
-/// <reference path="../lib/provider.d.ts" />
-
-import Engine = require('../lib/engine');
-import DebugEngine = Engine.DebugEngine;
-import Provider = require('../lib/provider');
-import DebugEngineProvider = Provider.DebugEngineProvider;
-import chai = require('chai');
+import { DebugEngine } from '../lib/engine';
+import * as Provider from '../lib/provider';
+import { DebugEngineProvider } from '../lib/provider';
+import * as chai from 'chai';
 var expect = chai.expect;
 
 class TestDebugEngine implements DebugEngine {

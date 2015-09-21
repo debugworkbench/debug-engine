@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = function(grunt) {
   grunt.initConfig({
     'pkg': grunt.file.readJSON('package.json'),
@@ -69,36 +71,29 @@ module.exports = function(grunt) {
             src: 'src/**/*.ts'
         }
     },
-    'typescript': {
-       lib: {
-         src: ['src/**/*.ts'],
-         dest: 'lib',
-         options: {
-           basePath: 'src',
-           declaration: true,
-           module: 'commonjs',
-           noImplicitAny: true,
-           sourceMap: true,
-           target: 'es5'
-         }
-       },
-       test: {
-         src: ['test/**/*.ts'],
-         options: {
-           module: 'commonjs',
-           sourceMap: true,
-           target: 'es5'
-         }
-       }
+    'tsc': {
+      options: {
+        tscPath: path.resolve('node_modules', 'typescript', 'bin', 'tsc')
+      },
+      lib: {
+        options: {
+          project: './src'
+        }
+      },
+      test: {
+        options: {
+          project: './test'
+        }
+      }
     },
     'watch': {
       lib: {
         files: 'src/**/*.ts',
-        tasks: ['tslint', 'typescript']
+        tasks: ['tslint', 'tsc:lib']
       },
       test: {
         files: 'test/**/*.ts',
-        tasks: ['test']
+        tasks: ['tsc:test', 'test']
       }
     }
   });
@@ -109,17 +104,17 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-tsd');
   grunt.loadNpmTasks('grunt-tslint');
   grunt.loadNpmTasks('grunt-typedoc');
-  grunt.loadNpmTasks('grunt-typescript');
+  grunt.loadNpmTasks('grunt-tsc');
 
   grunt.registerTask('docs', ['typedoc']);
 
   grunt.registerTask('lint', ['jshint', 'tslint']);
 
-  grunt.registerTask('build', ['typescript']);
+  grunt.registerTask('build', ['tsc']);
 
   grunt.registerTask('run-tests', ['mochaTest']);
 
-  grunt.registerTask('test', ['tslint', 'typescript', 'run-tests']);
+  grunt.registerTask('test', ['tslint', 'tsc', 'run-tests']);
 
   grunt.registerTask('default', ['lint', 'build', 'run-tests']);
 };

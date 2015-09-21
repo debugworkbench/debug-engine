@@ -1,5 +1,4 @@
-import engine = require('engine');
-import DebugEngine = engine.DebugEngine;
+import { DebugEngine } from './engine';
 
 export interface DebugEngineProvider {
   provides(name: string): boolean;
