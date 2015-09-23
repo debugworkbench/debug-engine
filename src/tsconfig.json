@@ -20,7 +20,9 @@
         "../node_modules/typescript/lib/lib.es6.d.ts",
         "../typings/tsd-lib.d.ts",
         "engine.ts",
+        "inferior.ts",
         "provider.ts",
+        "session.ts",
         "index.ts"
     ]
 }

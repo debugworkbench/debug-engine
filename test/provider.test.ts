@@ -1,15 +1,10 @@
-import { IDebugEngine, IDebugConfig, IDebugSession } from '../lib/engine';
+import { IDebugEngine, IDebugConfig } from '../lib/engine';
+import { IDebugSession } from '../lib/session';
+import { IDebugEngineProvider } from '../lib/provider';
 import * as provider from '../lib/provider';
 import * as chai from 'chai';
 
-type IDebugEngineProvider = provider.IDebugEngineProvider;
 var expect = chai.expect;
-
-class TestDebugSession implements IDebugSession {
-  end(): Promise<void> {
-    return Promise.resolve();
-  }
-}
 
 class TestDebugEngine implements IDebugEngine {
   get name(): string {
@@ -25,7 +20,7 @@ class TestDebugEngine implements IDebugEngine {
   }
 
   startDebugSession(config: IDebugConfig): Promise<IDebugSession> {
-    return Promise.resolve(new TestDebugSession());
+    return null;
   }
 }
 
