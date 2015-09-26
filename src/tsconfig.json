@@ -20,6 +20,7 @@
         "../node_modules/typescript/lib/lib.es6.d.ts",
         "../typings/tsd-lib.d.ts",
         "engine.ts",
+        "errors.d.ts",
         "inferior.ts",
         "provider.ts",
         "session.ts",

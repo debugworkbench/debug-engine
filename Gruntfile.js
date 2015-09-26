@@ -106,15 +106,19 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-typedoc');
   grunt.loadNpmTasks('grunt-tsc');
 
+  grunt.registerTask('copy-dts', 'Copy declarations to ./lib', function () {
+    grunt.file.copy('./src/errors.d.ts', './lib/errors.d.ts');
+  });
+
   grunt.registerTask('docs', ['typedoc']);
 
   grunt.registerTask('lint', ['jshint', 'tslint']);
 
-  grunt.registerTask('build', ['tsc']);
+  grunt.registerTask('build', ['tslint', 'tsc:lib', 'copy-dts']);
 
   grunt.registerTask('run-tests', ['mochaTest']);
 
-  grunt.registerTask('test', ['tslint', 'tsc', 'run-tests']);
+  grunt.registerTask('test', ['tslint', 'tsc:test', 'run-tests']);
 
   grunt.registerTask('default', ['lint', 'build', 'run-tests']);
 };
