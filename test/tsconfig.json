@@ -20,6 +20,6 @@
         "../typings/tsd-lib.d.ts",
         "../typings/tsd-test.d.ts",
         "error-tests.ts",
-		"provider.test.ts"
+        "provider-tests.ts"
     ]
 }
