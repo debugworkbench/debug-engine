@@ -5,5 +5,12 @@
 // in the subclass constructor, so instead the error subclasses are declared here but
 // implemented in plain JavaScript.
 
-export class ConnectionError extends Error {
+export class DebugEngineError extends Error {
+  stack: string;
+  detail: any;
+
+  constructor(message?: string, detail?: any);
+}
+
+export class ConnectionError extends DebugEngineError {
 }
