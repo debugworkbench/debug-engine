@@ -24,6 +24,7 @@
         "inferior.ts",
         "provider.ts",
         "session.ts",
+        "thread.ts",
         "index.ts"
     ]
 }
