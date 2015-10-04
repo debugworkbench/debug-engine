@@ -45,6 +45,11 @@ export interface IInferior {
   abort(): Promise<void>;
   interrupt(): Promise<void>;
   resume(): Promise<void>;
+  /**
+   * Disposes of any references held by this object, this should only be called when the object
+   * is no longer needed. All threads that belong to this inferior will be disposed.
+   */
+  dispose(): void;
 
   /** Adds an event handler that will be invoked when the inferior creates a new thread. */
   onDidCreateThread(callback: (e: IInferiorDidCreateThreadEvent) => void): Disposable;

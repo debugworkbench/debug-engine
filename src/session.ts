@@ -14,4 +14,9 @@ export interface IDebugSession {
   createInferior(options?: ICreateInferiorOptions): Promise<IInferior>;
   connectToRemoteTarget(host: string, port: number): Promise<void>;
   end(): Promise<void>;
+  /**
+   * Disposes of any references held by this object, this should only be called when the object
+   * is no longer needed. All inferiors that belong to this session will be disposed.
+   */
+  dispose(): void;
 }

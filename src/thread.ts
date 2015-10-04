@@ -21,6 +21,12 @@ export interface IThread {
   id: number;
   inferior: IInferior;
 
+  /**
+   * Disposes of any references held by this object, this should only be called when the object
+   * is no longer needed.
+   */
+  dispose(): void;
+
   onDidResume(callback: (e: IThreadDidResumeEvent) => void): Disposable;
   onDidStop(callback: (e: IThreadDidStopEvent) => void): Disposable;
   onDidExit(callback: (e: IThreadDidExitEvent) => void): Disposable;
