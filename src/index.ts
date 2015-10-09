@@ -1,3 +1,4 @@
+export * from './breakpoint';
 export * from './engine';
 export * from './inferior';
 export * from './provider';

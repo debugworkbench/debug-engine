@@ -19,6 +19,7 @@
     "files": [
         "../node_modules/typescript/lib/lib.es6.d.ts",
         "../typings/tsd-lib.d.ts",
+        "breakpoint.ts",
         "engine.ts",
         "errors.d.ts",
         "inferior.ts",
