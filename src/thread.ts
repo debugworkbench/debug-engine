@@ -18,7 +18,9 @@ export interface IThreadDidExitEvent {
 
 /** A thread in the inferior being debugged. */
 export interface IThread {
+  /** Read-only. */
   id: number;
+  /** Read-only. */
   inferior: IInferior;
 
   /**
