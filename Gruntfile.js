@@ -71,18 +71,28 @@ module.exports = function(grunt) {
             src: 'src/**/*.ts'
         }
     },
-    'tsc': {
-      options: {
-        tscPath: path.resolve('node_modules', 'typescript', 'bin', 'tsc')
-      },
+    'ibsforts': {
       lib: {
         options: {
-          project: './src'
+          projectConfigPath: './src/tsconfig.json',
+          plugins: [{
+            module: 'ibsforts-plugin-babel',
+            transform: 'babelTransform',
+            options: {
+              enableNodeModuleResolution: true,
+              plugins: [
+                'transform-strict-mode',
+                'transform-es2015-parameters',
+                'transform-es2015-destructuring',
+                'transform-es2015-spread'
+              ]
+            }
+          }]
         }
       },
       test: {
         options: {
-          project: './test'
+          projectConfigPath: './test/tsconfig.json'
         }
       }
     },
@@ -100,11 +110,11 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-ibsforts');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-tsd');
   grunt.loadNpmTasks('grunt-tslint');
   grunt.loadNpmTasks('grunt-typedoc');
-  grunt.loadNpmTasks('grunt-tsc');
 
   grunt.registerTask('copy-dts', 'Copy declarations to ./lib', function () {
     grunt.file.copy('./src/errors.d.ts', './lib/errors.d.ts');
@@ -114,11 +124,11 @@ module.exports = function(grunt) {
 
   grunt.registerTask('lint', ['jshint', 'tslint']);
 
-  grunt.registerTask('build', ['tslint', 'tsc:lib', 'copy-dts']);
+  grunt.registerTask('build', ['tslint', 'ibsforts:lib', 'copy-dts']);
 
   grunt.registerTask('run-tests', ['mochaTest']);
 
-  grunt.registerTask('test', ['tslint', 'tsc:test', 'run-tests']);
+  grunt.registerTask('test', ['tslint', 'ibsforts:test', 'run-tests']);
 
   grunt.registerTask('default', ['lint', 'build', 'run-tests']);
 };
