@@ -1,6 +1,20 @@
 var path = require('path');
 
 module.exports = function(grunt) {
+  var buildServerPlugins = [{
+    module: 'ibsforts-plugin-babel',
+    transform: 'babelTransform',
+    options: {
+      enableNodeModuleResolution: true,
+      plugins: [
+        'transform-strict-mode',
+        'transform-es2015-parameters',
+        'transform-es2015-destructuring',
+        'transform-es2015-spread'
+      ]
+    }
+  }];
+    
   grunt.initConfig({
     'pkg': grunt.file.readJSON('package.json'),
     'jshint': {
@@ -75,24 +89,13 @@ module.exports = function(grunt) {
       lib: {
         options: {
           projectConfigPath: './src/tsconfig.json',
-          plugins: [{
-            module: 'ibsforts-plugin-babel',
-            transform: 'babelTransform',
-            options: {
-              enableNodeModuleResolution: true,
-              plugins: [
-                'transform-strict-mode',
-                'transform-es2015-parameters',
-                'transform-es2015-destructuring',
-                'transform-es2015-spread'
-              ]
-            }
-          }]
+          plugins: buildServerPlugins
         }
       },
       test: {
         options: {
-          projectConfigPath: './test/tsconfig.json'
+          projectConfigPath: './test/tsconfig.json',
+          plugins: buildServerPlugins
         }
       }
     },
