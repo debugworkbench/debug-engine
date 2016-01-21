@@ -1,5 +1,3 @@
-lib/*.*
-!lib/errors.js
 node_modules
 npm-debug.log
 test/*.js
