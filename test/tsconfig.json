@@ -7,12 +7,10 @@
         "removeComments": false,
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true,
-        "noLib": true
+        "lib": ["es6"]
     },
     "files": [
-        "../node_modules/typescript/lib/lib.es6.d.ts",
-        "../typings/tsd-lib.d.ts",
-        "../typings/tsd-test.d.ts",
+        "../typings/event-kit/event-kit.d.ts",
         "error-tests.ts",
         "provider-tests.ts"
     ]
